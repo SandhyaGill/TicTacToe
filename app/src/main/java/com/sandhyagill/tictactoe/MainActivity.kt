@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.sandhyagill.tictactoe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBoard()
+
+        binding.btnReset.setOnClickListener {
+            resetBoard()
+        }
     }
 
     private fun initBoard() {
@@ -47,32 +53,38 @@ class MainActivity : AppCompatActivity() {
 
         if (chechForVictory(NOUGHT)){
             noughtScore++
-            result("Nought Win!")
+//            result("Nought Win!")
+            binding.tvNougth.text = "Nought's Score: $noughtScore"
+            Toast.makeText(this,"Nought Win!!", Toast.LENGTH_SHORT).show()
         }
         if (chechForVictory(CROSS)){
             crossesScore++
-            result("Crosses Win!")
+//            result("Crosses Win!")
+            binding.tvCross.text = "Cross's Score: $crossesScore"
+            Toast.makeText(this,"Cross Win!!", Toast.LENGTH_SHORT).show()
         }
         if (fullBoard()){
-            result("Draw")
+//            result("Draw")
+            Toast.makeText(this,"Draw!!", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun chechForVictory(s: String): Boolean {
         //for Horizontal
-         if (match(binding.a1,s) && match(binding.a2,s) && match(binding.a3,s))
+         if (match(binding.a1,s) && match(binding.a2,s) && match(binding.a3,s)){
              return true
+         }
          if (match(binding.b1,s) && match(binding.b2,s) && match(binding.b3,s))
              return true
-         if (match(binding.c1,s) && match(binding.c2,s) && match(binding.c3,s))
-             return true
+        if (match(binding.c1,s) && match(binding.c2,s) && match(binding.c3,s))
+            return true
         //for Vertical
          if (match(binding.a1,s) && match(binding.b1,s) && match(binding.c1,s))
              return true
-         if (match(binding.a2,s) && match(binding.b2,s) && match(binding.c2,s))
-             return true
-         if (match(binding.a3,s) && match(binding.b3,s) && match(binding.c3,s))
-             return true
+        if (match(binding.a2,s) && match(binding.b2,s) && match(binding.c2,s))
+            return true
+        if (match(binding.a3,s) && match(binding.b3,s) && match(binding.c3,s))
+            return true
         //for Diagonal
         if (match(binding.a1,s) && match(binding.b2,s) && match(binding.c3,s))
             return true
@@ -84,17 +96,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun match(button: Button, symbol: String): Boolean = button.text == symbol
 
-    private fun result(title : String){
-        var message = "\n Nought $noughtScore\n\n Crosses $crossesScore"
-        AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton("Reset"){_,_->
-                resetBoard()
-            }
-            .setCancelable(false)
-            .show()
-    }
+//    private fun result(title : String){
+////        var message = "\n Nought $noughtScore\n\n Crosses $crossesScore"
+//        AlertDialog.Builder(this)
+//            .setTitle(title)
+////            .setMessage(message)
+//            .setPositiveButton("Reset"){_,_->
+//               resetBoard()
+//            }
+//            .setCancelable(false)
+//            .show()
+//    }
 
     private fun resetBoard() {
          for (button in boardList){
@@ -106,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             firstTurn = turn.NOUGHT
         }
         currenturn = firstTurn
-            setTurnLabel()
+        setTurnLabel()
     }
 
     private fun fullBoard() : Boolean {
