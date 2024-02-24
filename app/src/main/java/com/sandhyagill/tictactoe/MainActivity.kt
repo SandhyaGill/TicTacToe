@@ -54,18 +54,21 @@ class MainActivity : AppCompatActivity() {
         if (chechForVictory(NOUGHT)){
             noughtScore++
 //            result("Nought Win!")
-            binding.tvNougth.text = "Nought's Score: $noughtScore"
-            Toast.makeText(this,"Nought Win!!", Toast.LENGTH_SHORT).show()
+            binding.tvNougth.text = "Nought Score: $noughtScore"
+            Toast.makeText(this,"Nought Win!!", Toast.LENGTH_LONG).show()
+//            resetBoard()
         }
         if (chechForVictory(CROSS)){
             crossesScore++
 //            result("Crosses Win!")
-            binding.tvCross.text = "Cross's Score: $crossesScore"
-            Toast.makeText(this,"Cross Win!!", Toast.LENGTH_SHORT).show()
+            binding.tvCross.text = "Cross Score: $crossesScore"
+            Toast.makeText(this,"Cross Win!!", Toast.LENGTH_LONG).show()
+//            resetBoard()
         }
         if (fullBoard()){
 //            result("Draw")
-            Toast.makeText(this,"Draw!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Draw!!", Toast.LENGTH_LONG).show()
+            resetBoard()
         }
     }
 
